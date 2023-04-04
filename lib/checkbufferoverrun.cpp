@@ -242,7 +242,7 @@ static std::vector<ValueFlow::Value> getOverrunIndexValues(const Token* tok,
     while (Token::Match(array, ".|::"))
         array = array->astOperand2();
 
-    bool isArrayIndex = tok->str() == "[";
+    bool isArrayIndex = tok->str() == "[" || tok->str() == "+";
     if (isArrayIndex) {
         const Token* parent = tok;
         while (Token::simpleMatch(parent, "["))

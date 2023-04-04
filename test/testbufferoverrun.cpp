@@ -380,7 +380,7 @@ private:
         // The memory isn't read or written and therefore there is no error.
         check("static void f() {\n"
               "    char data[100];\n"
-              "    const char *p = data + 100;\n"
+              "    const char *p = data + 99;\n"
               "}");
         ASSERT_EQUALS("", errout.str());
     }
@@ -3662,24 +3662,24 @@ private:
 
     void pointer_out_of_bounds_4() {
         check("const char* f() {\n"
-              "    g(\"Hello\" + 6);\n"
+              "    g(\"Hello\" + 5);\n"
               "}");
         ASSERT_EQUALS("", errout.str());
 
         check("const char* f() {\n"
-              "    g(\"Hello\" + 7);\n"
+              "    g(\"Hello\" + 6);\n"
               "}");
-        ASSERT_EQUALS("[test.cpp:2]: (portability) Undefined behaviour, pointer arithmetic '\"Hello\"+7' is out of bounds.\n", errout.str());
+        ASSERT_EQUALS("[test.cpp:2]: (portability) Undefined behaviour, pointer arithmetic '\"Hello\"+6' is out of bounds.\n", errout.str());
 
         check("const char16_t* f() {\n"
-              "    g(u\"Hello\" + 6);\n"
+              "    g(u\"Hello\" + 5);\n"
               "}");
         ASSERT_EQUALS("", errout.str());
 
         check("const char16_t* f() {\n"
-              "    g(u\"Hello\" + 7);\n"
+              "    g(u\"Hello\" + 6);\n"
               "}");
-        ASSERT_EQUALS("[test.cpp:2]: (portability) Undefined behaviour, pointer arithmetic 'u\"Hello\"+7' is out of bounds.\n", errout.str());
+        ASSERT_EQUALS("[test.cpp:2]: (portability) Undefined behaviour, pointer arithmetic 'u\"Hello\"+6' is out of bounds.\n", errout.str());
 
         check("void f() {\n" // #4647
               "    int val = 5;\n"
